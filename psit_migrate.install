@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Install file for psit_migrate module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function psit_migrate_install() {
+  // Set the migrate class to ours.
+  variable_set('wordpress_migrate_blog_class', 'PsitMigrateWordpressBlog');
+
+  module_load_include('module', 'dof_migrate');
+
+  $migration_values = psit_migrate_get_site_arguments();
+  dof_migrate_create_wordpress_migration($migration_values['values']);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function psit_migrate_uninstall() {
+  $site_name = variable_get('site_abbreviation', 'dof');
+  $filename = $site_name . '_export.xml';
+  $file = reset(file_load_multiple([], ['filename' => $filename]));
+  if ($file) {
+    file_delete($file);
+  }
+}

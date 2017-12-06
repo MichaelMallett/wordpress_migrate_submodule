@@ -1,0 +1,8 @@
+name = "PSIT Migrate"
+description = "Import content from external sources"
+package = "DOF"
+core = 7.x
+
+dependencies[] = dof_migrate
+files[] = psit_migrate.migrate.inc
+files[] = psit_migrate.items.inc

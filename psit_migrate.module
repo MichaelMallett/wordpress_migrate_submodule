@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Module file for psit_migrate.
+ */
+
+/**
+ * Get arguments for use in building migration.
+ *
+ * @return array mixed
+ *   Return array of arguments for migration.
+ */
+function psit_migrate_get_site_arguments() {
+  $migration_values['values'] = [
+    'page_type' => 'psit_page',
+    'event_type' => 'psit_page',
+    'post_type' => 'psit_page',
+  ];
+
+  // Required values.
+  $migration_values['values']['steps'] = 10;
+  // Required values.
+  $site_name = variable_get('site_abbreviation', 'dof');
+  $migration_values['values']['wxr_filename'] = $site_name . '_export.xml';
+
+  return $migration_values;
+}
